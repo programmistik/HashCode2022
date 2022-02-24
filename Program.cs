@@ -18,8 +18,8 @@ namespace OnePizza
             string outputPath = Path.Combine(thisAppPath, "OutputFiles");
             //string PathToFile = Path.Combine(thisAppPath, "InputFiles\\a_an_example.in.txt");
             //string PathToFile = Path.Combine(thisAppPath, "InputFiles\\b_better_start_small.in.txt");
-            //string PathToFile = Path.Combine(thisAppPath, "InputFiles\\c_collaboration.in.txt");
-            string PathToFile = Path.Combine(thisAppPath, "InputFiles\\d_dense_schedule.in.txt");
+            string PathToFile = Path.Combine(thisAppPath, "InputFiles\\c_collaboration.in.txt");
+            //string PathToFile = Path.Combine(thisAppPath, "InputFiles\\d_dense_schedule.in.txt");
             //string PathToFile = Path.Combine(thisAppPath, "InputFiles\\e_exceptional_skills.in.txt");
             //string PathToFile = Path.Combine(thisAppPath, "InputFiles\\f_find_great_mentors.in.txt");
 
@@ -114,7 +114,7 @@ namespace OnePizza
             var Solution = new List<PlanProject>();
             //var orderedProjects = ProjS;//.OrderByDescending(x => x.Score).ToList();
             int index = 0;
-            while (index < 100)
+            while (index < 10)
             {
                 index++;
                 var orderedProjects = new List<Project>(ProjS);
@@ -136,17 +136,17 @@ namespace OnePizza
                     if (pr.contributors.Count == project.Skills.Count)
                     {
 
-                        //foreach (var cont in pr.contributors)
-                        //{
-                        //    foreach (var sk in pr.project.Skills)
-                        //    {
+                        foreach (var cont in pr.contributors)
+                        {
+                            foreach (var sk in pr.project.Skills)
+                            {
 
-                        //        var hasSkill = cont.Skills.Where(x => x.Name.Equals(sk.Name)).Any();
-                        //        if (hasSkill)
-                        //            cont.Skills.Where(x => x.Name.Equals(sk.Name)).First().Level++;
-                        //    }
-                        //}
-                   
+                                var hasSkill = cont.Skills.Where(x => x==sk).Any();
+                                if (hasSkill==true)
+                                    cont.Skills.Where(x => x.Name.Equals(sk.Name)).First().Level++;
+                            }
+                        }
+
                         Solution.Add(pr);
                         ProjS.Remove(pr.project);
                     }
@@ -157,7 +157,7 @@ namespace OnePizza
 
 
 
-            var pp = outputPath + "\\d.txt";
+            var pp = outputPath + "\\c.txt";
             using (StreamWriter sw = new StreamWriter(pp))
             {
                 sw.WriteLine(Solution.Count);
